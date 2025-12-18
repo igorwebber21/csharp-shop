@@ -28,12 +28,12 @@ public partial class Program
         app.UseStatusCodePages();
 
         // Существующий минимальный маршрут остаётся
-        app.MapGet("/", () => app.Environment.IsProduction() ? "Prod" : app.Environment.EnvironmentName);
+        //app.MapGet("/", () => app.Environment.IsProduction() ? "Prod" : app.Environment.EnvironmentName);
 
         // Маршрут по умолчанию для MVC
         app.MapControllerRoute(
             name: "default",
-            pattern: "{controller=Home}/{action=Index}/{id?}");
+            pattern: "{controller=Home}/{action=Index}/{id?}"); 
 
         app.Run();
     }

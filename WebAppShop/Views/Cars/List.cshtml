@@ -1,0 +1,22 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@using System.Web.Mvc 
+@model CarsListViewModel 
+@{
+ // take from _ViewStart.cshtml   Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main>
+    <h1>@Model.Title</h1>
+    <ul>
+        @{
+            foreach (var car in Model.AllCars)
+            {
+                <li>@car.Name (@car.ShortDesc ) - $ @car.Price</li>
+
+            }
+        }
+    </ul>
+</main>
