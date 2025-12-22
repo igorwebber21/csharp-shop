@@ -14,5 +14,7 @@ namespace WebAppShop.Data
 
         public DbSet<Category> Category { get; set; }
 
+        public DbSet<ShopCartItem> ShopCartItem { get; set; }
+
     }
 }

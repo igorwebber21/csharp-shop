@@ -5,6 +5,7 @@ using WebAppShop.Data.Mocks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using WebAppShop.Data.Repository;
+using WebAppShop.Data.Models;
 
 public partial class Program
 {
@@ -29,6 +30,15 @@ public partial class Program
         // Регистрация сервиса для работы с автомобилями и  категориями автомобилей (From Repository)
         builder.Services.AddTransient<ICars, CarRepository>();
         builder.Services.AddTransient<ICarsCategory, CategoryRepository>();
+
+        // Регистрация сервиса для работы с корзиной покупок
+        builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+        builder.Services.AddScoped(sp => ShopCart.GetCart(sp));
+
+        // Регистрация кэша и сессий
+        builder.Services.AddMemoryCache();
+        builder.Services.AddSession();
+
 
         var app = builder.Build();
 
@@ -65,6 +75,9 @@ public partial class Program
         // добавляем страницы ошибок
         app.UseDeveloperExceptionPage();
         app.UseStatusCodePages();
+
+        // Активируем сессии
+        app.UseSession();
 
         // Существующий минимальный маршрут остаётся
         //app.MapGet("/", () => app.Environment.IsProduction() ? "Prod" : app.Environment.EnvironmentName);

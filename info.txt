@@ -9,3 +9,6 @@ dotnet add package Microsoft.EntityFrameworkCore.Tools
 
 // Миграции
 Add-Migration Initial
+
+Add-Migration ShopCart
+Update-database

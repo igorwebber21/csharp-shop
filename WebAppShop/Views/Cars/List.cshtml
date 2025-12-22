@@ -23,27 +23,7 @@
                     {
                         foreach (var car in Model.AllCars)
                         {
-                            <div class="col car-item">
-                                <div class="card shadow-sm">
-                                    <div class="car-img-block">
-                                        <img class="car-img" src="@car.Img" alt="Alternate Text" />
-                                    </div>
-
-                                    <h2>@car.Name</h2>
-
-                                    <div class="card-body">
-                                        <p class="card-text">@car.ShortDesc</p>
-                                        <h4>Price: @car.Price.ToString("C")</h4>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="btn-group">
-                                                <button type="button" class="btn btn-sm btn-outline-secondary">Смотреть</button>
-                                                <button type="button" class="btn btn-sm btn-outline-secondary">Редактировать</button>
-                                            </div>
-                                            <small class="text-muted">9 mins</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            @Html.Partial("Cars", car);
                         }
                     }
                    

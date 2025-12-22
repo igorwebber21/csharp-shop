@@ -17,7 +17,7 @@ namespace WebAppShop.Data
                 content.Car.AddRange(
                        new Car
                        {
-                           Name = "Tesla Model S",
+                           Name = "Tesla Model S4444",
                            ShortDesc = "Быстрый электромобиль",
                            LongDesc = "Tesla Model S - это полностью электрический автомобиль, известный своей высокой производительностью и дальностью хода.",
                            Img = "/img/cars/tesla.jpg",
@@ -28,7 +28,7 @@ namespace WebAppShop.Data
                        },
                         new Car
                         {
-                            Name = "Ford Mustang",
+                            Name = "Ford Mustang444",
                             ShortDesc = "Классический американский мускулкар",
                             LongDesc = "Ford Mustang - это икона американского автомобилестроения, известная своим мощным двигателем и стильным дизайном.",
                             Img = "/img/cars/mustang.jpg",
