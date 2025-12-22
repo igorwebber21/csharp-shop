@@ -6,7 +6,7 @@ namespace WebAppShop.Data.Interfaces
     {
         IEnumerable<Car> Cars { get; set; }
         IEnumerable<Car> FavoriteCars { get; set; } 
-        Car GetCarById(int carId);
+        Car? GetCarById(int carId);
 
     }
 }

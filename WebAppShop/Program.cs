@@ -1,22 +1,61 @@
+using Microsoft.EntityFrameworkCore;
+using WebAppShop.Data;
 using WebAppShop.Data.Interfaces;
 using WebAppShop.Data.Mocks;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using WebAppShop.Data.Repository;
 
 public partial class Program
 {
     private static void Main(string[] args)
     {
-        var builder = WebApplication.CreateBuilder(args);
+        var builder = WebApplication.CreateBuilder(args); 
+
+        // Подключаем кастомный json с connection string DB
+        builder.Configuration.AddJsonFile("dbsettings.json", optional: false, reloadOnChange: true);
 
         // Регистрация MVC (Controllers + Views)
         builder.Services.AddControllersWithViews();
 
-        // Регистрация сервиса для работы с автомобилями
-        builder.Services.AddTransient<ICars, MockCars>();
+        // Регистрируем DbContext с connection string из dbsettings.json
+        builder.Services.AddDbContext<AppDBContent>(options =>
+            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-        // Регистрация сервиса для работы с категориями автомобилей
-        builder.Services.AddTransient<ICarsCategory, MockCategory>();
+        // Регистрация сервиса для работы с автомобилями и  категориями автомобилей (From Mocks)
+       // builder.Services.AddTransient<ICars, MockCars>(); 
+       // builder.Services.AddTransient<ICarsCategory, MockCategory>();
+
+        // Регистрация сервиса для работы с автомобилями и  категориями автомобилей (From Repository)
+        builder.Services.AddTransient<ICars, CarRepository>();
+        builder.Services.AddTransient<ICarsCategory, CategoryRepository>();
 
         var app = builder.Build();
+
+       /* using (var scope = app.Services.CreateScope())
+        {
+            var services = scope.ServiceProvider;
+            var logger = services.GetRequiredService<ILogger<Program>>();
+
+            logger.LogInformation("Start program");
+            try
+            {
+                var db = services.GetRequiredService<AppDBContent>();
+                if (db.Database.CanConnect())
+                {
+                    logger.LogInformation("Database 'Shop' connected successfully.");
+                }
+                else
+                {
+                    logger.LogError("Cannot connect to database 'Shop'.");
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Exception while checking DB connection.");
+            }
+        }
+       */
 
         // Статические файлы и маршрутизация для MVC
         app.UseStaticFiles();
@@ -33,7 +72,14 @@ public partial class Program
         // Маршрут по умолчанию для MVC
         app.MapControllerRoute(
             name: "default",
-            pattern: "{controller=Home}/{action=Index}/{id?}"); 
+            pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
+        using (var scope = app.Services.CreateScope())
+        {
+            AppDBContent content = scope.ServiceProvider.GetRequiredService<AppDBContent>();
+            DBObjects.Initial(content);
+        }
 
         app.Run();
     }

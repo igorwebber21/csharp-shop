@@ -1,0 +1,11 @@
+Самый популярный ORM в .NET
+Работаешь с БД как с объектами, без SQL (почти).
+
+📦 Установка (пример: SQL Server)
+dotnet add package Microsoft.EntityFrameworkCore
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+dotnet add package Microsoft.EntityFrameworkCore.Tools
+
+
+// Миграции
+Add-Migration Initial
