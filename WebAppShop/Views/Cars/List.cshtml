@@ -4,18 +4,32 @@
 
 @model CarsListViewModel
 @{
- // take from _ViewStart.cshtml   Layout = "~/Views/Shared/_Layout.cshtml";
+    // take from _ViewStart.cshtml   Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <main>
-    <h1>@Model.Title</h1>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Главная</a></li>
+            <li class="breadcrumb-item"><a href="/Cars/List">Автомобили</a></li>
+            @{
+                if (Model.currCategory != null)
+                {
+                    <li class="breadcrumb-item active" aria-current="page">@Model.currCategory</li>
+                }
+            }
+        </ol>
+    </nav>
+
+    <h1>@Model.Title</h1> 
 
     <div class="album py-5 bg-light">
+
         <div class="container">
 
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 @{
-                    if(Model.AllCars.Count() == 0)
+                    if (Model.AllCars.Count() == 0)
                     {
                         <h2>Машин нет</h2>
                     }
@@ -23,12 +37,13 @@
                     {
                         foreach (var car in Model.AllCars)
                         {
-                            @Html.Partial("Cars", car);
+                            @Html.Partial("Cars", car)
+                            ;
                         }
                     }
-                   
+
                 }
             </div>
         </div>
-    </div> 
+    </div>
 </main>

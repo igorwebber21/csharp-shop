@@ -82,6 +82,12 @@ public partial class Program
         // Существующий минимальный маршрут остаётся
         //app.MapGet("/", () => app.Environment.IsProduction() ? "Prod" : app.Environment.EnvironmentName);
 
+        // Явный маршрут: /Cars/List и /Cars/List/{category} (category необязателен)
+        app.MapControllerRoute(
+            name: "cars_list",
+            pattern: "Cars/{action}/{category?}",
+            defaults: new { controller = "Cars", action = "List" });
+
         // Маршрут по умолчанию для MVC
         app.MapControllerRoute(
             name: "default",
