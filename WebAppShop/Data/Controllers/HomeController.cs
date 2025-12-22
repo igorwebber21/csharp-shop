@@ -1,16 +1,32 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebAppShop.Data.Interfaces;
+using WebAppShop.ViewModels;
 
 namespace WebAppShop.Data.Controllers
 {
     public class HomeController : Controller
     {
+
+        private readonly ICars? _carRepository; 
+
+        public HomeController(ICars? carRepository)
+        {
+            _carRepository = carRepository; 
+        }
+
         // GET: HomeController
-        public ActionResult Index()
+        public ViewResult Index()
         {
             ViewBag.PageTitle = "Главная";
 
-            return View();
+            var homeCars = new HomeViewModel
+            {
+                FavCars = _carRepository?.FavoriteCars,
+                Title = "Избранные авто"
+            }; 
+
+            return View(homeCars);
         } 
     }
 }

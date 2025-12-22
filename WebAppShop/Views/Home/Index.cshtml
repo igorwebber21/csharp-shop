@@ -1,4 +1,27 @@
-﻿<h1>Home page</h1>
-<div>
- Some text     
-</div>
+﻿@model HomeViewModel
+
+<main>
+    <h1>@Model.Title</h1>
+
+    <div class="album py-5 bg-light">
+        <div class="container">
+
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                @{
+                    if (Model.FavCars.Count() == 0)
+                    {
+                        <h2>Машин нет</h2>
+                    }
+                    else
+                    {
+                        foreach (var car in Model.FavCars)
+                        {
+                            @Html.Partial("Cars", car);
+                        }
+                    }
+
+                }
+            </div>
+        </div>
+    </div>
+</main>
