@@ -1,5 +1,4 @@
-﻿using WebAppShop.Data.Models;
-using WebAppShop.Migrations;
+﻿using WebAppShop.Data.Models; 
 
 namespace WebAppShop.Data
 {
@@ -47,6 +46,9 @@ namespace WebAppShop.Data
 
 
         private static Dictionary<string, Category>? category;
+
+        // Создаем категории автомобилей 
+        // если они еще не созданы
         public static Dictionary<string, Category> Categories
         {
             get
@@ -55,8 +57,18 @@ namespace WebAppShop.Data
                 {
                     var list = new Category[]
                     {
-                        new Category{ Name="Электромобили", Description="Современный вид транспорта"},
-                        new Category{ Name="Классические автомобили", Description="Машины с двигателем внутреннего сгорания"}
+                        new Category
+                        { 
+                            Name="Электромобили",
+                            Alias="Electro",
+                            Description="Современный вид транспорта"
+                        },
+                        new Category
+                        { 
+                            Name="Классические автомобили",
+                            Alias="Fuel",
+                            Description="Машины с двигателем внутреннего сгорания"
+                        }
                     };
                     category = new Dictionary<string, Category>();
                     foreach (Category el in list)

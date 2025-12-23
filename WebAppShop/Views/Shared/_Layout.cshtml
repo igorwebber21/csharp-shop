@@ -14,13 +14,18 @@
         <nav>
             <a href="/">Home</a> |
             <a href="/Cars/List">Car List</a> |
-            <a href="/Cars/List/Electro">Электомобили</a> |
-            <a href="/Cars/List/Fuel">Бензиновые</a> |
+
+
+            @foreach (var cat in Model.AllCategories)
+            {
+                <a href="/Cars/List/@cat.Alias">@cat.Name</a>
+                <span>|</span>
+            }
             <a href="/ShopCart">Shop Cart</a>
         </nav>
     </header>
 
-    <div > 
+    <div>
 
         @RenderBody()
     </div>

@@ -7,15 +7,14 @@ namespace WebAppShop.Data.Controllers
 {
     // Префикс маршрута для контроллера — будет использоваться как начало пути
     [Route("Cars")]
-    public class CarsController : Controller
+    public class CarsController : BaseController
     {
-        private readonly ICars _allCars;
-        private readonly ICarsCategory _allCategories;
+        private readonly ICars _allCars; 
 
         public CarsController(ICars iCars, ICarsCategory iCarsCategory)
+        : base(iCarsCategory) // поле iCarsCategory из  BaseController
         {
             _allCars = iCars;
-            _allCategories = iCarsCategory;
         }
 
         // Маршрут: /Cars/List и /Cars/List/{category} (category необязателен)
@@ -23,7 +22,8 @@ namespace WebAppShop.Data.Controllers
         public IActionResult List(string category) 
         {
             string _category = category;
-            IEnumerable<Car> cars = null;
+            IEnumerable<Car>? cars = null;
+            IEnumerable<Category>? categories = null;
             string currCategory = "";
 
             if(string.IsNullOrEmpty(category))
@@ -35,16 +35,17 @@ namespace WebAppShop.Data.Controllers
                 if (string.Equals("electro", category, StringComparison.OrdinalIgnoreCase))
                 {
                     cars = _allCars.Cars.Where(i => i.Category.Name.Equals("Электромобили")).OrderBy(i => i.Id);
+
+                    currCategory = "Электромобили";
                 }
                 else if (string.Equals("fuel", category, StringComparison.OrdinalIgnoreCase))
                 {
                     cars = _allCars.Cars.Where(i => i.Category.Name.Equals("Классические автомобили")).OrderBy(i => i.Id);
+                    currCategory = "Классические автомобили";
                 }
-
-                currCategory = _category;
             }
 
-
+            categories = _allCategories.AllCategories.OrderBy(i => i.Id);
 
             // вместо передачи списка авто напрямую _allCars.Cars  в представление,    
             // создадим объект CarsListViewModel
@@ -52,6 +53,7 @@ namespace WebAppShop.Data.Controllers
             var carObj = new CarsListViewModel
             {
                 AllCars = cars,
+                AllCategories = categories,
                 currCategory = currCategory,
                 Title = "Список авто"
             };

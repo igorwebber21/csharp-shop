@@ -5,12 +5,12 @@ using WebAppShop.ViewModels;
 
 namespace WebAppShop.Data.Controllers
 {
-    public class ShopCartController : Controller
+    public class ShopCartController : BaseController
     {
         private readonly ICars? _carRepository;
         private readonly ShopCart? _shopCart;
 
-        public ShopCartController(ICars? carRepository, ShopCart? shopCart)
+        public ShopCartController(ICars? carRepository, ShopCart? shopCart, ICarsCategory сategories) : base(сategories)
         {
             _carRepository = carRepository;
             _shopCart = shopCart;
@@ -25,6 +25,7 @@ namespace WebAppShop.Data.Controllers
                 _shopCart.ListShopItems = items;
                 var obj = new ShopCartViewModel{
                   ShopCart = _shopCart,
+                  AllCategories = Categories
                 };
 
                 return View(obj);

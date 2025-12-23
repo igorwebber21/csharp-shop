@@ -12,3 +12,11 @@ Add-Migration Initial
 
 Add-Migration ShopCart
 Update-database
+
+// Если хотим добавить новое поле в таблицу, то добавляем в модель Category
+public string Image { get; set; }
+
+а потом
+
+Add-Migration CategoryAddFieldImage
+Update-database

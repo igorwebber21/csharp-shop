@@ -11,8 +11,8 @@ using WebAppShop.Data;
 namespace WebAppShop.Migrations
 {
     [DbContext(typeof(AppDBContent))]
-    [Migration("20251222141645_ShopCart")]
-    partial class ShopCart
+    [Migration("20251223170252_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -74,6 +74,10 @@ namespace WebAppShop.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Alias")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .IsRequired()

@@ -13,7 +13,7 @@
             <li class="breadcrumb-item"><a href="/">Главная</a></li>
             <li class="breadcrumb-item"><a href="/Cars/List">Автомобили</a></li>
             @{
-                if (Model.currCategory != null)
+                if (Model.currCategory != "")
                 {
                     <li class="breadcrumb-item active" aria-current="page">@Model.currCategory</li>
                 }
@@ -21,7 +21,17 @@
         </ol>
     </nav>
 
-    <h1>@Model.Title</h1> 
+    <h1>
+        @{
+            if (Model.currCategory != "")
+            {
+                @Model.currCategory 
+            }
+            else{
+              @Model.Title
+            }
+           }
+    </h1> 
 
     <div class="album py-5 bg-light">
 

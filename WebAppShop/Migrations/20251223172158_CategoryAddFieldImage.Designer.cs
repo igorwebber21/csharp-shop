@@ -11,8 +11,8 @@ using WebAppShop.Data;
 namespace WebAppShop.Migrations
 {
     [DbContext(typeof(AppDBContent))]
-    [Migration("20251222123714_Initial")]
-    partial class Initial
+    [Migration("20251223172158_CategoryAddFieldImage")]
+    partial class CategoryAddFieldImage
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -75,7 +75,15 @@ namespace WebAppShop.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Alias")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Image")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -88,6 +96,31 @@ namespace WebAppShop.Migrations
                     b.ToTable("Category");
                 });
 
+            modelBuilder.Entity("WebAppShop.Data.Models.ShopCartItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CarId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ShopCartId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CarId");
+
+                    b.ToTable("ShopCartItem");
+                });
+
             modelBuilder.Entity("WebAppShop.Data.Models.Car", b =>
                 {
                     b.HasOne("WebAppShop.Data.Models.Category", "Category")
@@ -97,6 +130,17 @@ namespace WebAppShop.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("WebAppShop.Data.Models.ShopCartItem", b =>
+                {
+                    b.HasOne("WebAppShop.Data.Models.Car", "Car")
+                        .WithMany()
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Car");
                 });
 
             modelBuilder.Entity("WebAppShop.Data.Models.Category", b =>

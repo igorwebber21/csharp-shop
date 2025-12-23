@@ -2,11 +2,10 @@
 
 namespace WebAppShop.ViewModels
 {
-    public class CarsListViewModel
+    public class CarsListViewModel : BaseViewModel
     {
         internal string currCategory;
-
-        public IEnumerable<Car> AllCars { get; set; } 
+        public IEnumerable<Car> AllCars { get; set; }  
         public string? Title { get; set; }
     }
 }

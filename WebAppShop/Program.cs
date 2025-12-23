@@ -42,30 +42,30 @@ public partial class Program
 
         var app = builder.Build();
 
-       /* using (var scope = app.Services.CreateScope())
-        {
-            var services = scope.ServiceProvider;
-            var logger = services.GetRequiredService<ILogger<Program>>();
+        /* using (var scope = app.Services.CreateScope())
+         {
+             var services = scope.ServiceProvider;
+             var logger = services.GetRequiredService<ILogger<Program>>();
 
-            logger.LogInformation("Start program");
-            try
-            {
-                var db = services.GetRequiredService<AppDBContent>();
-                if (db.Database.CanConnect())
-                {
-                    logger.LogInformation("Database 'Shop' connected successfully.");
-                }
-                else
-                {
-                    logger.LogError("Cannot connect to database 'Shop'.");
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, "Exception while checking DB connection.");
-            }
-        }
-       */
+             logger.LogInformation("Start program");
+             try
+             {
+                 var db = services.GetRequiredService<AppDBContent>();
+                 if (db.Database.CanConnect())
+                 {
+                     logger.LogInformation("Database 'Shop' connected successfully.");
+                 }
+                 else
+                 {
+                     logger.LogError("Cannot connect to database 'Shop'.");
+                 }
+             }
+             catch (Exception ex)
+             {
+                 logger.LogError(ex, "Exception while checking DB connection.");
+             }
+         }
+        */
 
         // Статические файлы и маршрутизация для MVC
         app.UseStaticFiles();
@@ -94,11 +94,13 @@ public partial class Program
             pattern: "{controller=Home}/{action=Index}/{id?}");
 
 
+        // Инициализация таблиц базы данных с начальными данными
         using (var scope = app.Services.CreateScope())
         {
             AppDBContent content = scope.ServiceProvider.GetRequiredService<AppDBContent>();
             DBObjects.Initial(content);
         }
+
 
         app.Run();
     }

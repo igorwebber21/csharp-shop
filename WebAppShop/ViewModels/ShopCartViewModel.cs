@@ -2,7 +2,7 @@
 
 namespace WebAppShop.ViewModels
 {
-    public class ShopCartViewModel
+    public class ShopCartViewModel : BaseViewModel
     {
         public ShopCart? ShopCart { get; set; }
         public int TotalPrice { get; set; }

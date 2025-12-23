@@ -5,14 +5,14 @@ using WebAppShop.ViewModels;
 
 namespace WebAppShop.Data.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
 
-        private readonly ICars? _carRepository; 
+        private readonly ICars? _carRepository;
 
-        public HomeController(ICars? carRepository)
+        public HomeController(ICars carRepository, ICarsCategory сategories) : base(сategories)
         {
-            _carRepository = carRepository; 
+            _carRepository = carRepository;
         }
 
         // GET: HomeController
@@ -23,6 +23,7 @@ namespace WebAppShop.Data.Controllers
             var homeCars = new HomeViewModel
             {
                 FavCars = _carRepository?.FavoriteCars,
+                AllCategories = Categories,
                 Title = "Избранные авто"
             }; 
 
