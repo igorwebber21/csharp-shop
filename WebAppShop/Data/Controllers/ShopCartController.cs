@@ -23,6 +23,7 @@ namespace WebAppShop.Data.Controllers
             if (_shopCart != null)
             {
                 _shopCart.ListShopItems = items;
+
                 var obj = new ShopCartViewModel{
                   ShopCart = _shopCart,
                   AllCategories = Categories
@@ -37,10 +38,10 @@ namespace WebAppShop.Data.Controllers
         }
 
         // Добавление товара в корзину
-        public RedirectToActionResult AddToShopCart(int id)
+        public RedirectToActionResult AddToCart(int carId)
         {
             // Получаем выбранный товар по его id
-            var selectedCar = _carRepository?.Cars.FirstOrDefault(p => p.Id == id);
+            var selectedCar = _carRepository?.Cars.FirstOrDefault(p => p.Id == carId);
 
             // Если товар найден, добавляем его в корзину
             if (selectedCar != null && _shopCart != null)

@@ -11,12 +11,13 @@
         <div class="card-body">
             <p class="card-text">@Model.ShortDesc</p>
             <h4>Price: @Model.Price.ToString("C")</h4>
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Смотреть</button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Редактировать</button>
-                </div>
-                <small class="text-muted">9 mins</small>
+            <div class="d-flex justify-content-around align-items-center">
+                <div class="btn-group text-center">
+                    <a class="btn btn-warning" 
+                       asp-controller="ShopCart" asp-action="AddToCart" asp-route-carId="@Model.Id">
+                        В корзину
+                    </a>
+                  </div> 
             </div>
         </div>
     </div>

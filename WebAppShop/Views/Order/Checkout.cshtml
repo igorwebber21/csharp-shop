@@ -1,0 +1,51 @@
+﻿@model OrderViewModel
+
+<div class="row">
+    <h3>Оформление заказа</h3>
+
+    <form asp-controller="Order" asp-action="Checkout" method="post" class="form-horizontal">
+
+        <div class="form-group">
+            <label asp-for="Orders.Name"></label>
+            <div class="col-md5">
+                <input asp-for="Orders.Name" class="form-control">
+                <span asp-validation-for="Orders.Name" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Orders.Surname"></label>
+            <div class="col-md5">
+                <input asp-for="Orders.Surname" class="form-control">
+                <span asp-validation-for="Orders.Surname" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Orders.Address"></label>
+            <div class="col-md5">
+                <input asp-for="Orders.Address" class="form-control">
+                <span asp-validation-for="Orders.Address" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Orders.Phone"></label>
+            <div class="col-md5">
+                <input asp-for="Orders.Phone" class="form-control">
+                <span asp-validation-for="Orders.Phone" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Orders.Email"></label>
+            <div class="col-md5">
+                <input asp-for="Orders.Email" class="form-control">
+                <span asp-validation-for="Orders.Email" class="text-danger"></span>
+            </div>
+        </div>
+
+        <input type="submit" class="btn btn-success mt-3" value="Заказать">
+
+    </form>
+</div>

@@ -6,5 +6,6 @@ namespace WebAppShop.ViewModels
     {
         public ShopCart? ShopCart { get; set; }
         public int TotalPrice { get; set; }
+        public string? Title { get; set; }
     }
 }

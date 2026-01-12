@@ -29,10 +29,11 @@ public partial class Program
 
         // Регистрация сервиса для работы с автомобилями и  категориями автомобилей (From Repository)
         builder.Services.AddTransient<ICars, CarRepository>();
-        builder.Services.AddTransient<ICarsCategory, CategoryRepository>();
+        builder.Services.AddTransient<ICarsCategory, CategoryRepository>(); 
+        builder.Services.AddTransient<IOrders, OrdersRepository>();
 
         // Регистрация сервиса для работы с корзиной покупок
-        builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+        builder.Services.AddHttpContextAccessor();
         builder.Services.AddScoped(sp => ShopCart.GetCart(sp));
 
         // Регистрация кэша и сессий
@@ -70,14 +71,15 @@ public partial class Program
         // Статические файлы и маршрутизация для MVC
         app.UseStaticFiles();
         app.UseRouting();
+
+        // Активируем сессии
+        app.UseSession();
+
         app.UseAuthorization();
 
         // добавляем страницы ошибок
         app.UseDeveloperExceptionPage();
         app.UseStatusCodePages();
-
-        // Активируем сессии
-        app.UseSession();
 
         // Существующий минимальный маршрут остаётся
         //app.MapGet("/", () => app.Environment.IsProduction() ? "Prod" : app.Environment.EnvironmentName);

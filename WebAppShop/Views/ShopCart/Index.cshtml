@@ -1,6 +1,6 @@
 ﻿@model ShopCartViewModel
 
-<div class="container">ggg
+<div class="container">
     @if (Model?.ShopCart?.ListShopItems != null)
     {
         foreach (var item in Model.ShopCart.ListShopItems)
@@ -14,17 +14,14 @@
                     <p>@item.Car.ShortDesc</p>
                 </div>
 
-                <div class="col-md-4 d-flex align-items-center">
-                    <a asp-controller="ShopCart"
-                       asp-action="AddToShopCart"
-                       asp-route-id="@item.Car.Id"
-                       class="btn btn-primary">
-                        Добавить в корзину
-                    </a>
-                </div>
-
             </div>
         }
- 
+
+        <hr />
+
+        <a class="btn btn-danger mb-5" asp-controller="Order" asp-action="Checkout">
+            Оплатить
+        </a>
+
     }
 </div>
